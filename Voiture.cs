@@ -4,8 +4,11 @@ namespace ft
     public class Voiture : Vehicule
     {
         private int _chevauxFiscaux { get; }
+
         private int _nbPorte { get; }
+
         private int _nbSiege { get; }
+
         private int _tailleCoffre { get; }
 
         public Voiture(

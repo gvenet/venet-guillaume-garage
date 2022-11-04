@@ -4,7 +4,9 @@ namespace ft
     public class Camion : Vehicule
     {
         private int _nbEssieu;
+
         private int _poids;
+
         private int _volume;
 
         public Camion(

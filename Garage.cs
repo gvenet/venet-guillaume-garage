@@ -27,7 +27,7 @@ namespace ft
             get { return options; }
             set { options = value; }
         }
-        Utils utls = new Utils();
+
         Vehicule? current = null;
 
         public Vehicule Current
@@ -37,6 +37,7 @@ namespace ft
         }
 
         public Garage() { }
+
         public void Afficher()
         {
             foreach (Vehicule vehicule in vehicules)
@@ -73,6 +74,7 @@ namespace ft
                 }
             }
         }
+
         public void AfficherMoto()
         {
             foreach (Vehicule vehicule in vehicules)
@@ -89,6 +91,7 @@ namespace ft
                 }
             }
         }
+
         public void AfficherVoiture()
         {
             foreach (Vehicule vehicule in vehicules)
@@ -105,6 +108,7 @@ namespace ft
                 }
             }
         }
+
         public void AfficherCamion()
         {
             foreach (Vehicule vehicule in vehicules)
@@ -121,6 +125,7 @@ namespace ft
                 }
             }
         }
+
         public void TrierVehicule()
         {
             vehicules.Sort(
@@ -166,17 +171,13 @@ namespace ft
         public void AfficherMarques()
         {
             foreach (Marque marque in (Marque[])Enum.GetValues(typeof(Marque)))
-            {
                 Console.WriteLine(marque);
-            }
         }
 
         public void AfficherTypesMoteurs()
         {
             foreach (TypeMoteur type in (TypeMoteur[])Enum.GetValues(typeof(TypeMoteur)))
-            {
                 Console.WriteLine(type);
-            }
         }
 
         public void AfficherMoteurs()
@@ -202,6 +203,7 @@ namespace ft
                     flux.Close();
             }
         }
+
         public T Charger<T>()
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -220,6 +222,21 @@ namespace ft
                 if (flux != null)
                     flux.Close();
             }
+        }
+
+        public List<int> getIdsList<T>()
+        {
+            List<int> idsList = new List<int>();
+            if (typeof(T) == typeof(Moteur))
+                foreach (Moteur moteur in moteurs)
+                    idsList.Add(moteur.Id);
+            else if (typeof(T) == typeof(Vehicule))
+                foreach (Vehicule vehicule in vehicules)
+                    idsList.Add(vehicule.Id);
+            else
+                foreach (Option option in options)
+                    idsList.Add(option.Id);
+            return idsList;
         }
     }
 }

@@ -4,15 +4,20 @@ namespace ft
     public abstract class Vehicule : IComparable
     {
         protected static int incrementid = 0;
+
         protected int _id;
 
         public int Id
         {
             get => _id;
         }
+
         protected String _nom { get; }
+
         protected Decimal _prixHT { get; }
+
         protected Marque _marque { get; }
+
         protected Moteur _moteur { get; }
 
         protected List<Option> _options = new List<Option>();
@@ -23,6 +28,11 @@ namespace ft
             {
                 return _options;
             }
+        }
+
+        public void majIdApresChargement()
+        {
+            incrementid = _id + 1;
         }
 
         public Vehicule(String nom,Decimal prixHT,Marque marque,Moteur moteur)
@@ -95,5 +105,6 @@ namespace ft
             else
                 throw new ArgumentException("Object is not a Vehicule");
         }
+
     }
 }

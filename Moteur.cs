@@ -4,14 +4,18 @@ namespace ft
     public class Moteur
     {
         private static int incrementid = 0;
+
         private int _id;
 
         public int Id
         {
             get => _id;
         }
+
         private String _nom;
+
         private int _puissance { get; }
+
         private ft.TypeMoteur _typemoteur { get; }
 
         public Moteur()
@@ -27,6 +31,11 @@ namespace ft
             _nom = nom;
             _puissance = puissance;
             _typemoteur = typemoteur;
+        }
+
+        public void majIdApresChargement()
+        {
+            incrementid = _id + 1;
         }
 
         public void Afficher()

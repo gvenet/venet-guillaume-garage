@@ -5,7 +5,9 @@ namespace ft
     public class Menu
     {
         private Garage _garage;
+
         private Utils utls = new Utils();
+
         private String[] menuStrings = {
             "0. Afficher les véhicules",
             "1. Ajouter un véhicule",
@@ -45,71 +47,71 @@ namespace ft
                     switch (menuNb)
                     {
                         case 0:
-                            utls.printBlue("Menu principal - 0. Afficher les véhicules");
+                            utls.printBlue("0. Afficher les véhicules");
                             _garage.Afficher();
                             break;
                         case 1:
-                            utls.printBlue("Menu principal - 1. Ajouter un vehicule");
+                            utls.printBlue("1. Ajouter un vehicule");
                             AjouterVehicule();
                             break;
                         case 2:
-                            utls.printBlue("Menu principal - 2. Supprimer un véhicule");
+                            utls.printBlue("2. Supprimer un véhicule");
                             SupprimerVehicule();
                             break;
                         case 3:
-                            utls.printBlue("Menu principal - 3. Sélectionner un véhicule");
+                            utls.printBlue("3. Sélectionner un véhicule");
                             SelectionnerVehicule();
                             break;
                         case 4:
-                            utls.printBlue("Menu principal - 4. Afficher les options d'un véhicule");
+                            utls.printBlue("4. Afficher les options d'un véhicule");
                             _garage.AfficherOptionsVehicule();
                             break;
                         case 5:
-                            utls.printBlue("Menu principal - 5. Ajouter des options à un véhicule");
+                            utls.printBlue("5. Ajouter des options à un véhicule");
                             AjouterOptionVehicule();
                             break;
                         case 6:
-                            utls.printBlue("Menu principal - 6. Supprimer des options à un véhicule");
+                            utls.printBlue("6. Supprimer des options à un véhicule");
                             SupprimerOptionVehicule();
                             break;
                         case 7:
-                            utls.printBlue("Menu principal - 7. Afficher les options");
+                            utls.printBlue("7. Afficher les options");
                             _garage.AfficherOptions();
                             break;
                         case 8:
-                            utls.printBlue("Menu principal - 8. Afficher les moteurs");
+                            utls.printBlue("8. Afficher les moteurs");
                             _garage.AfficherMoteurs();
                             break;
                         case 9:
-                            utls.printBlue("Menu principal - 9. Afficher les marques");
+                            utls.printBlue("9. Afficher les marques");
                             _garage.AfficherMarques();
                             break;
                         case 10:
-                            utls.printBlue("Menu principal - 10. Afficher les types de moteurs");
+                            utls.printBlue("10. Afficher les types de moteurs");
                             _garage.AfficherTypesMoteurs();
                             break;
                         case 11:
-                            utls.printBlue("Menu principal - 11. Charger le garage");
-                            _garage = _garage.Charger<Garage>();
+                            utls.printBlue("11. Charger le garage");
+                            Charger();
                             break;
                         case 12:
-                            utls.printBlue("Menu principal - 12. Sauvegarder le garage");
+                            utls.printBlue("12. Sauvegarder le garage");
                             _garage.Enregistrer();
                             break;
                         case 13:
-                            utls.printBlue("Menu principal - 13. Ajouter moteur");
+                            utls.printBlue("13. Ajouter moteur");
                             AjouterMoteur();
                             break;
                         case 14:
-                            utls.printBlue("Menu principal - 14. Ajouter option");
+                            utls.printBlue("14. Ajouter option");
                             AjouterOption();
                             break;
                         case 15:
-                            utls.printBlue("Menu principal - 15. Trier les vehicules");
+                            utls.printBlue("15. Trier les vehicules");
                             _garage.TrierVehicule();
                             break;
                         case 16:
-                            utls.printBlue("Menu principal - 16. Quitter l'application\n");
+                            utls.printBlue("16. Quitter l'application\n");
                             System.Environment.Exit(0);
                             break;
                     }
@@ -117,10 +119,19 @@ namespace ft
                 catch (Exception e)
                 {
                     utls.printRed(e.ToString());
+
                 }
             }
 
 
+        }
+
+        public void Charger()
+        {
+            _garage = _garage.Charger<Garage>();
+            _garage.Vehicules.Last().majIdApresChargement();
+            _garage.Moteurs.Last().majIdApresChargement();
+            _garage.Options.Last().majIdApresChargement();
         }
 
         public void AjouterOption()
@@ -141,18 +152,6 @@ namespace ft
             _garage.Moteurs.Add(new Moteur(motorName,puissance,(TypeMoteur)typeMoteur));
         }
 
-        public void SupprimerOption()
-        {
-            List<int> index = new List<int>();
-            foreach (Option option in _garage.Options)
-            {
-                option.Afficher();
-                index.Add(option.Id);
-            }
-            int deleteId = utls.GetChoix<int>("Saisir l'id de l'option a supprimer : ",index);
-            _garage.Options = _garage.Options.Where(option => option.Id != deleteId).ToList();
-        }
-
         public void AjouterVehicule()
         {
             int idVehicule = utls.GetChoix<int>(
@@ -167,13 +166,9 @@ namespace ft
             );
             Marque marque = (Marque)(indexMarque);
             Console.WriteLine("Selectionner un moteur par id");
-            List<int> index = new List<int>();
             foreach (Moteur moteur in _garage.Moteurs)
-            {
                 moteur.Afficher();
-                index.Add(moteur.Id);
-            }
-            int idMoteur = utls.GetChoix<int>("",index);
+            int idMoteur = utls.GetChoix<int>("",_garage.getIdsList<Moteur>());
             Moteur moteurVehicule = new Moteur();
             foreach (Moteur moteur in _garage.Moteurs)
                 if (idMoteur == moteur.Id)
@@ -228,78 +223,50 @@ namespace ft
                     break;
             }
         }
+
         public void SupprimerVehicule()
         {
             _garage.Afficher();
-            List<int> index = new List<int>();
-            foreach (Vehicule vehicule in _garage.Vehicules)
-                index.Add(vehicule.Id);
-            int deleteId = utls.GetChoix<int>("Saisir l'id du vehicule a supprimer : ",index);
+            int deleteId = utls.GetChoix<int>("Saisir l'id du vehicule a supprimer : ",_garage.getIdsList<Vehicule>());
             if (_garage.Current != null && deleteId == _garage.Current.Id)
                 _garage.Current = null!;
             _garage.Vehicules = _garage.Vehicules.Where(vehicule => vehicule.Id != deleteId).ToList();
-
-
-
         }
+
         public void SelectionnerVehicule()
         {
             _garage.Afficher();
-            List<int> index = new List<int>();
-            foreach (Vehicule vehicule in _garage.Vehicules)
-                index.Add(vehicule.Id);
-            int selectedId = utls.GetChoix<int>("Saisir l'id du vehicule a selectionner : ",index);
+            int selectedId = utls.GetChoix<int>("Saisir l'id du vehicule a selectionner : ",_garage.getIdsList<Vehicule>());
             foreach (Vehicule vehicule in _garage.Vehicules)
                 if (vehicule.Id == selectedId)
                     _garage.Current = vehicule;
         }
+
         public void AjouterOptionVehicule()
         {
             if (_garage.Current == null)
                 throw new Exception("Veuillez selectionner un vehicule");
             else
             {
-                List<int> index = new List<int>();
                 foreach (Option option in _garage.Options)
-                {
                     option.Afficher();
-                    index.Add(option.Id);
-                }
-                int optionId = utls.GetChoix<int>("Saisir l'id de l'option a ajouter : ",index);
+                int optionId = utls.GetChoix<int>("Saisir l'id de l'option a ajouter : ",_garage.getIdsList<Option>());
                 foreach (Option option in _garage.Options)
                     if (option.Id == optionId)
                         _garage.Current.AjouterOption(option);
             }
         }
-        public void SupprimerOptions()
-        {
-            List<int> index = new List<int>();
-            foreach (Option option in _garage.Options)
-            {
-                option.Afficher();
-                index.Add(option.Id);
-            }
-            int deleteId = utls.GetChoix<int>("Saisir l'id de l'option a supprimer : ",index);
-            _garage.Vehicules = _garage.Vehicules.Where(vehicule => vehicule.Id != deleteId).ToList();
-        }
+
         public void SupprimerOptionVehicule()
         {
-            List<int> index = new List<int>();
             if (_garage.Current == null)
                 throw new Exception("Veuillez selectionner un vehicule");
             else
-            {
-                foreach (Option option in _garage.Options)
-                {
-                    option.Afficher();
-                    index.Add(option.Id);
-                }
-            }
-            int optionId = utls.GetChoix<int>("Saisir l'id de l'option a supprimer : ",index);
+                _garage.Current.AfficherOptions();
+            int optionId = utls.GetChoix<int>("Saisir l'id de l'option a supprimer : ",_garage.getIdsList<Option>());
             foreach (Option option in _garage.Options)
                 if (option.Id == optionId)
                     _garage.Current.SupprimerOption(option);
         }
-
     }
 }

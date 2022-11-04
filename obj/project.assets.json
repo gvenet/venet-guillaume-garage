@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mbassieux/Prog/csharp/venet.guillaume/GestionDeGarage.csproj",
+      "projectUniqueName": "/Users/mbassieux/Prog/csharp/venet-guillaume-garage/GestionDeGarage.csproj",
       "projectName": "GestionDeGarage",
-      "projectPath": "/Users/mbassieux/Prog/csharp/venet.guillaume/GestionDeGarage.csproj",
+      "projectPath": "/Users/mbassieux/Prog/csharp/venet-guillaume-garage/GestionDeGarage.csproj",
       "packagesPath": "/Users/mbassieux/.nuget/packages/",
-      "outputPath": "/Users/mbassieux/Prog/csharp/venet.guillaume/obj/",
+      "outputPath": "/Users/mbassieux/Prog/csharp/venet-guillaume-garage/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/mbassieux/.nuget/NuGet/NuGet.Config"

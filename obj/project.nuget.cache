@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/X5Hp5T42atd/3SkNtp2780CgIc9MBS/cp0firURlxU+QOn9Nn5LiRC3hLSBSMl7C86u5B2bocl1Yd0LbPbf/g==",
+  "dgSpecHash": "RT03jXBOGzZHwKQ5EL8W4Z2If04ci1jnx0x7yhEViZlyersQndvDPMkgVvPwuJo+ZTtzgot2FQitPDsX0lbimQ==",
   "success": true,
-  "projectFilePath": "/Users/mbassieux/Prog/csharp/venet.guillaume/GestionDeGarage.csproj",
+  "projectFilePath": "/Users/mbassieux/Prog/csharp/venet-guillaume-garage/GestionDeGarage.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

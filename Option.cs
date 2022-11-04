@@ -4,12 +4,16 @@ namespace ft
     public class Option
     {
         private static int incrementid = 0;
+
         private int _id;
+
         public int Id
         {
             get => _id;
         }
+
         private String _nom;
+
         private Decimal _prix;
 
         public Decimal Prix
@@ -22,6 +26,11 @@ namespace ft
             _id = incrementid++;
             _nom = nom;
             _prix = prix;
+        }
+
+        public void majIdApresChargement()
+        {
+            incrementid = _id + 1;
         }
 
         public void Afficher()
